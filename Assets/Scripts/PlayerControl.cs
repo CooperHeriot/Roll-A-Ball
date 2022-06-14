@@ -24,4 +24,11 @@ public class PlayerControl : MonoBehaviour
         //add force
         rb.AddForce(movement * speed);
     }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == ("Collectible")){
+            Destroy(other.gameObject);
+        }
+    }
 }
