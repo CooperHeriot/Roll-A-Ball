@@ -6,11 +6,16 @@ public class PlayerControl : MonoBehaviour
 {
     private Rigidbody rb;
     public float speed;
+
+    public float count;
+
+    public GameObject WinText;
     // Start is called before the first frame update
     void Start()
     {
         //get rigibody
         rb = GetComponent<Rigidbody>();
+        count = GameObject.FindGameObjectsWithTag("PickUp").Length;
     }
 
     // Update is called once per frame
@@ -23,12 +28,27 @@ public class PlayerControl : MonoBehaviour
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
         //add force
         rb.AddForce(movement * speed);
+        count = GameObject.FindGameObjectsWithTag("PickUp").Length;
+
+        //wincondition
+
+        if (count == 0)
+        {
+            WinText.SetActive(true);
+        }
     }
 
-    private void OnCollisionEnter(Collision other)
+    void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == ("Collectible")){
+        //pickup stuff
+        if (other.gameObject.tag == ("PickUp")){
+            //Pickupdate();
             Destroy(other.gameObject);
         }
     }
+
+    //void Pickupdate()
+    //{
+    //    count = GameObject.FindGameObjectsWithTag("PickUp").Length;
+    //}
 }

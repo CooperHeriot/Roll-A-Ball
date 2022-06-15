@@ -19,7 +19,7 @@ public class attraction : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
        // wah = Quaternion.LookRotation(transform.position - target.transform.position);
 
