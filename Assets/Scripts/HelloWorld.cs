@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HelloWorld : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class HelloWorld : MonoBehaviour
     // Start is called before the first frame update
 
     public int counter;
+
+    public Text Textworld;
     void Start()
     {
         Debug.Log("Hello World");
@@ -30,5 +33,6 @@ public class HelloWorld : MonoBehaviour
     void DisplayCount()
     {
         Debug.Log("da counter is at " + counter + " boi");
+        Textworld.text = "hacha pacha";
     }
 }
