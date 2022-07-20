@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     private GameObject Player;
+    private PlayerControl plya;
 
     private Vector3 offset;
     // Start is called before the first frame update
@@ -14,12 +15,17 @@ public class CameraController : MonoBehaviour
         Player = GameObject.Find("Player");
         //set offset to position in scene
         offset = transform.position - Player.transform.position;
+
+        plya = Player.GetComponent<PlayerControl>();
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
         //follow player
-        transform.position = Player.transform.position + offset;
+        if (plya.resseting == false)
+        {
+            transform.position = Player.transform.position + offset;
+        }
     }
 }

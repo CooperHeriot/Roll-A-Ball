@@ -12,6 +12,11 @@ public class PlayerControl : MonoBehaviour
 
     public float count;
 
+    GameObject ressetPoint;
+    public bool resseting = false;
+    Color origColor;
+    private TrailRenderer aaaa;
+
     public GameObject WinText;
     public Image Imag;
     public TMP_Text Bloks;
@@ -26,6 +31,11 @@ public class PlayerControl : MonoBehaviour
         smount = count;
         CheckPickup();
         WinText.SetActive(false);
+
+        ressetPoint = GameObject.Find("RespawnPoint");
+        origColor = GetComponent<Renderer>().material.color;
+        aaaa = GetComponent<TrailRenderer>();
+        aaaa.enabled = false;
     }
 
     // Update is called once per frame
@@ -35,6 +45,9 @@ public class PlayerControl : MonoBehaviour
         {
             return;
         }
+        if (resseting)
+            return;
+
         //get inputs
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
@@ -53,6 +66,15 @@ public class PlayerControl : MonoBehaviour
             Destroy(other.gameObject);
         }
         CheckPickup();
+
+        //reset if hurt
+        if (other.gameObject.tag == ("Respawn"))
+        {
+            Invoke("Resetinng", 1);
+            GetComponent<Renderer>().material.color = Color.black;
+            resseting = true;
+            aaaa.enabled = true;
+        }
     }
 
     void CheckPickup()
@@ -74,6 +96,16 @@ public class PlayerControl : MonoBehaviour
         }
     }
     //reset the game
+
+    public void Resetinng()
+    {
+        transform.position = ressetPoint.transform.position;
+        resseting = false;
+        GetComponent<Renderer>().material.color = origColor;
+        rb.velocity = Vector3.zero;
+        aaaa.enabled = false;
+    }
+
     public void ResetTheGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
