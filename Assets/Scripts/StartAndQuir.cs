@@ -13,11 +13,13 @@ public class StartAndQuir : MonoBehaviour
 
     public void ReloadScene()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void ToTitleScreen()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("Menu");
     }
 
