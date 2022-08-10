@@ -13089,6 +13089,10 @@ PrefabInstance:
 
 '
       objectReference: {fileID: 0}
+    - target: {fileID: 6800336609629456738, guid: 99467613eda4266458562affac8cade3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: MyLevel4
+      objectReference: {fileID: 0}
     - target: {fileID: 6800336609828969146, guid: 99467613eda4266458562affac8cade3, type: 3}
       propertyPath: m_Name
       value: Canvas 1
@@ -13179,6 +13183,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99467613eda4266458562affac8cade3, type: 3}
+--- !u!114 &1431959813 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6800336609243490898, guid: 99467613eda4266458562affac8cade3, type: 3}
+  m_PrefabInstance: {fileID: 1431959812}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1431959814 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6800336608984139715, guid: 99467613eda4266458562affac8cade3, type: 3}
+  m_PrefabInstance: {fileID: 1431959812}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1431959815 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6800336608745432188, guid: 99467613eda4266458562affac8cade3, type: 3}
+  m_PrefabInstance: {fileID: 1431959812}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1433723173 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8402576154768414070, guid: 8aaee973c1245b1488fc1ece7ee2a12f, type: 3}
@@ -18279,15 +18310,15 @@ PrefabInstance:
     - target: {fileID: 7787312971437144135, guid: bcfcd554bc6e20b4894c311bebdc5615, type: 3}
       propertyPath: Imag
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1431959813}
     - target: {fileID: 7787312971437144135, guid: bcfcd554bc6e20b4894c311bebdc5615, type: 3}
       propertyPath: Bloks
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1431959814}
     - target: {fileID: 7787312971437144135, guid: bcfcd554bc6e20b4894c311bebdc5615, type: 3}
       propertyPath: WinText
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1431959815}
     - target: {fileID: 7787312971437144140, guid: bcfcd554bc6e20b4894c311bebdc5615, type: 3}
       propertyPath: m_Name
       value: Player
