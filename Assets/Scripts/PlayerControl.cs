@@ -21,6 +21,13 @@ public class PlayerControl : MonoBehaviour
     public Image Imag;
     public TMP_Text Bloks;
     private float smount;
+
+    //Controllers
+    GameController gameController;
+    Timer timer;
+
+    //private bool onfloor;
+    public GameObject shadow;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,11 +43,19 @@ public class PlayerControl : MonoBehaviour
         origColor = GetComponent<Renderer>().material.color;
         aaaa = GetComponent<TrailRenderer>();
         aaaa.enabled = false;
+
+        gameController = FindObjectOfType<GameController>();
+        timer = FindObjectOfType<Timer>();
+        if (gameController.gameType == GameType.SpeedRun)
+            StartCoroutine(timer.StartCountdown());
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (gameController.gameType == GameType.SpeedRun && !timer.IsTiming())
+            return;
+
         if (count == 0)
         {
             return;
@@ -56,6 +71,19 @@ public class PlayerControl : MonoBehaviour
         //add force
         rb.AddForce(movement * speed);
         CheckPickup();
+
+        //shadow
+        RaycastHit Hit;
+        if (Physics.Raycast (transform.position, Vector3.down, out Hit, 100, ~6))
+        {
+            //if (onfloor == false) { }
+            shadow.SetActive(true);
+            shadow.transform.position = Hit.point;
+            //shadow.transform.position = new Vector3(transform.position.x, Hit.point.y, transform.position.z);
+        } else
+        {
+            shadow.SetActive(false);
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -92,7 +120,8 @@ public class PlayerControl : MonoBehaviour
         //set win text to true if all things collected
         if (count == 0)
         {
-            WinText.SetActive(true);
+            shadow.SetActive(false);
+            WinText.SetActive(true);           
         }
     }
     //reset the game
@@ -109,5 +138,13 @@ public class PlayerControl : MonoBehaviour
     public void ResetTheGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    void WinGame()
+    {
+        WinText.SetActive(true);
+
+        if (gameController.gameType == GameType.SpeedRun)
+            timer.StopTimer();
     }
 }
