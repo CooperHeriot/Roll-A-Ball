@@ -121,7 +121,9 @@ public class PlayerControl : MonoBehaviour
         if (count == 0)
         {
             shadow.SetActive(false);
-            WinText.SetActive(true);           
+            WinText.SetActive(true);
+            if (gameController.gameType == GameType.SpeedRun)
+                timer.StopTimer();
         }
     }
     //reset the game

@@ -24,12 +24,27 @@ public class Timer : MonoBehaviour
     public Text BestTimeResult;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        countdownPanel = GameObject.Find("CountDownpanel");
+        countdownText = countdownPanel.GetComponentInChildren<Text>();
+
+        timertext = GameObject.Find("Timertext").GetComponent<Text>();
+
+        timesPanel = GameObject.Find("Times");
+        myTimeResult = GameObject.Find("jaja").GetComponent<Text>();
+        BestTimeResult = GameObject.Find("zaza").GetComponent<Text>();
+
         timesPanel.SetActive(false);
         countdownPanel.SetActive(false);
         timertext.text = "";
         startAndQuirt = FindObjectOfType<StartAndQuir>();
+    }
+
+    private void OnLevelWasLoaded(int level)
+    {
+        print("bruh");
+        //GetThings();
     }
 
     // Update is called once per frame
@@ -44,6 +59,9 @@ public class Timer : MonoBehaviour
 
     public IEnumerator StartCountdown()
     {
+        //GetThings();
+        yield return new WaitForEndOfFrame();
+        Debug.Log("Started Timer");
         bestTime = PlayerPrefs.GetFloat("BestTime" + startAndQuirt.GetSceneName());
         if (bestTime == 0f) bestTime = 680f;
 
@@ -76,7 +94,7 @@ public class Timer : MonoBehaviour
         if (currentTime <= bestTime)
         {
             bestTime = currentTime;
-            PlayerPrefs.SetFloat("bestTime" + startAndQuirt.GetSceneName(), bestTime);
+            PlayerPrefs.SetFloat("BestTime" + startAndQuirt.GetSceneName(), bestTime);
             BestTimeResult.text = bestTime.ToString("F3") + "!! NEW BEST !!";
         }
     }
@@ -84,5 +102,17 @@ public class Timer : MonoBehaviour
     public bool IsTiming()
     {
         return timing;
+    }
+
+    public void GetThings()
+    {
+        countdownPanel = GameObject.Find("CountDownpanel");
+        countdownText = countdownPanel.GetComponentInChildren<Text>();
+
+        timertext = GameObject.Find("Timertext").GetComponent<Text>();
+
+        timesPanel = GameObject.Find("Times");
+        myTimeResult = GameObject.Find("jaja").GetComponent<Text>();
+        BestTimeResult = GameObject.Find("zaza").GetComponent<Text>();
     }
 }

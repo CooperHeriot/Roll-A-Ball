@@ -8,10 +8,12 @@ public class CheckPoint : MonoBehaviour
     public GameObject one, two, tre, fur;
     public float numb;
     private bool done;
+    public GameObject newTHing;
     // Start is called before the first frame update
     void Start()
     {
         rp = GameObject.Find("RespawnPoint");
+        newTHing.SetActive(false);
     }
 
     // Update is called once per frame
@@ -33,6 +35,7 @@ public class CheckPoint : MonoBehaviour
         {
             done = true;
             rp.transform.position = transform.position;
+            newTHing.SetActive(true);
         }
     }
 }
