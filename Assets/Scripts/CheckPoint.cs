@@ -35,6 +35,7 @@ public class CheckPoint : MonoBehaviour
         {
             done = true;
             rp.transform.position = transform.position;
+            rp.transform.parent = transform;
             newTHing.SetActive(true);
         }
     }

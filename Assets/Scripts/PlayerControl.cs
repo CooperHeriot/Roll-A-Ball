@@ -7,16 +7,19 @@ using TMPro;
 
 public class PlayerControl : MonoBehaviour
 {
+    //movement
     private Rigidbody rb;
     public float speed;
 
     public float count;
 
+    //reset the gameobject when dead
     GameObject ressetPoint;
     public bool resseting = false;
     Color origColor;
     private TrailRenderer aaaa;
 
+    //pickup count
     public GameObject WinText;
     public Image Imag;
     public TMP_Text Bloks;
@@ -26,7 +29,13 @@ public class PlayerControl : MonoBehaviour
     GameController gameController;
     Timer timer;
 
-    //private bool onfloor;
+    //DeathScreech
+    private AudioSource screm;
+
+    //sound controller
+    SoundController soundController;
+
+    //crosshair
     public GameObject shadow;
     // Start is called before the first frame update
     void Start()
@@ -38,11 +47,14 @@ public class PlayerControl : MonoBehaviour
         smount = count;
         CheckPickup();
         WinText.SetActive(false);
+        soundController = FindObjectOfType<SoundController>();
 
         ressetPoint = GameObject.Find("RespawnPoint");
         origColor = GetComponent<Renderer>().material.color;
         aaaa = GetComponent<TrailRenderer>();
         aaaa.enabled = false;
+
+        screm = GetComponent<AudioSource>();
 
         gameController = FindObjectOfType<GameController>();
         timer = FindObjectOfType<Timer>();
@@ -91,9 +103,16 @@ public class PlayerControl : MonoBehaviour
         //pickup stuff
         if (other.gameObject.tag == ("PickUp")){
             //Pickupdate();
+            soundController.PlayPickupSound();
             Destroy(other.gameObject);
         }
         CheckPickup();
+
+        if (other.gameObject.tag == ("Wall"))
+        {
+            //Pickupdate();
+            soundController.PlayCollisionSound(other.gameObject);
+        }
 
         //reset if hurt
         if (other.gameObject.tag == ("Respawn"))
@@ -102,6 +121,9 @@ public class PlayerControl : MonoBehaviour
             GetComponent<Renderer>().material.color = Color.black;
             resseting = true;
             aaaa.enabled = true;
+
+            screm.pitch = Random.Range(0.8f, 1.4f);
+            screm.Play();
         }
     }
 
@@ -135,6 +157,8 @@ public class PlayerControl : MonoBehaviour
         GetComponent<Renderer>().material.color = origColor;
         rb.velocity = Vector3.zero;
         aaaa.enabled = false;
+
+        //screm.Stop();
     }
 
     public void ResetTheGame()
@@ -146,7 +170,24 @@ public class PlayerControl : MonoBehaviour
     {
         WinText.SetActive(true);
 
+        soundController.PlayWinSound();
         if (gameController.gameType == GameType.SpeedRun)
             timer.StopTimer();
     }
+
+   // private void OnBecameInvisible()
+    //{
+    //    print("Invis");
+    //    //Icon.GetComponent<MeshRenderer>().enabled = true;
+        //mr.enabled = true;
+    //    Icon.SetActive(true);
+    //}
+
+   // private void OnBecameVisible()
+    //{
+    //    print("vis");
+        //Icon.GetComponent<MeshRenderer>().enabled = false;
+        //mr.enabled = false;
+    //    Icon.SetActive(false);
+    //}
 }
