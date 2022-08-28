@@ -103,16 +103,12 @@ public class PlayerControl : MonoBehaviour
         //pickup stuff
         if (other.gameObject.tag == ("PickUp")){
             //Pickupdate();
+            other.GetComponent<Particles>().CreateParticles();
             soundController.PlayPickupSound();
             Destroy(other.gameObject);
         }
         CheckPickup();
-
-        if (other.gameObject.tag == ("Wall"))
-        {
-            //Pickupdate();
-            soundController.PlayCollisionSound(other.gameObject);
-        }
+      
 
         //reset if hurt
         if (other.gameObject.tag == ("Respawn"))
@@ -124,6 +120,15 @@ public class PlayerControl : MonoBehaviour
 
             screm.pitch = Random.Range(0.8f, 1.4f);
             screm.Play();
+        }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == ("Wall"))
+        {
+            //Pickupdate();
+            soundController.PlayCollisionSound(other.gameObject);
         }
     }
 
